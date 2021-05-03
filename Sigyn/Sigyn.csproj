@@ -1,11 +1,8 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">  
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;netcoreapp3.1;MonoAndroid90;MonoAndroid10.0;Xamarin.iOS10</TargetFrameworks>
-    <PackageId>Sigyn</PackageId>
-    <Authors>SOliasS</Authors>
-    <Company>SOliasS</Company>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    
+    <TargetFrameworks>netstandard2.0;netcoreapp3.1;MonoAndroid11.0;MonoAndroid10.0;Xamarin.iOS10;uap10.0.19041</TargetFrameworks>
+
     <Nullable>enable</Nullable>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
@@ -46,6 +43,10 @@
     <Compile Include="**\*.shared.xaml.cs" />
   </ItemGroup>
 
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
+    <Compile Include="Platforms\Uap\**\*.cs" />
+  </ItemGroup>
+
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
   </ItemGroup>
 
@@ -57,13 +58,10 @@
     <Compile Include="**\*.apple.cs" />
   </ItemGroup>
 
-
- 
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.4.0" />
-    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.2.0" />
+    <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'MonoAndroid90'">
@@ -77,7 +75,10 @@
       <Version>28.0.0.3</Version>
     </PackageReference>
   </ItemGroup>
-
-
-
+  <ItemGroup>
+    <Compile Include="ViewModels\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Threading\PrivateThreading.cs" />
+  </ItemGroup>
 </Project>
